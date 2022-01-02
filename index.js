@@ -1,7 +1,6 @@
 const canvas = document.querySelector(".myCanvas")
 const context = canvas.getContext("2d")
 canvas.style.display = "none";
-const ingredients = ['tomato sauce', 'patty', 'bread']
 //const startPage = document.querySelector(".startPage")
 
 const backgroundImage = document.querySelector(".backgroundImage")
@@ -9,7 +8,6 @@ const backgroundImage = document.querySelector(".backgroundImage")
 //start button
 const startButton = document.querySelector(".startGame");
 startButton.onclick = () => {
-    console.log('works')
  backgroundImage.style.display = "none";
  canvas.style.display = "block";
 };
@@ -35,7 +33,7 @@ img.onload = () => {
     context.drawImage(img, 100, 0, 250, 250);
 }
 
-//chesse
+//cheese
 const cheese = new Image();
 cheese.src = "./cheese.png";
 cheese.onload = () => {
@@ -91,9 +89,43 @@ chef.onload = () => {
     context.drawImage(chef, 670, 183, 300, 300);
 }
 
-//tomates
+//tomatoes
 const tomatoes = new Image();
 tomatoes.src = "./tomatoes.png";
 tomatoes.onload = () => {
     context.drawImage(tomatoes, 100, 550, 50, 90);
+}
+
+//create burger
+function createOrder(newOrder) {
+    let orderIngredients = [
+        'cheese',
+        'tomato sauce',
+        'patty',
+        'bread',
+        'mustard sauce',
+        'onion',
+        'tomatoes'
+    ];
+    let newBurger = [];
+
+    for(let i = 0; i < newOrder; i++){
+        let rand = Math.floor(Math.random() * Math.floor(orderIngredients.length));
+        newBurger.push(orderIngredients[rand]);
+    }
+    if($.inArray('cheese', newBurger) <0){
+        let rand =Math.floor(Math.random() * Math.floor(newBurger.length - 1));
+        newBurger.splice(rand, 1, 'cheese');
+    }
+    newBurger = {ingredients: newBurger.join(',')};
+    return newBurger;
+}
+
+//Receive order
+function getNewOrder(order) {
+    let currentOrder = order.ingredients.split(',');
+    orderElement.find('.order').append('<p>Yes, My order is...</p>')
+    currentOrder.forEach(function(ingredient){
+        orderElement.find('.order').append(`<p><span class="${ingredient}"></span>${ingredient}</p>`);
+    });
 }
