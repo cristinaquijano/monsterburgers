@@ -1,131 +1,221 @@
-const canvas = document.querySelector(".myCanvas")
-const context = canvas.getContext("2d")
+const canvas = document.querySelector(".myCanvas");
+const context = canvas.getContext("2d");
 canvas.style.display = "none";
 //const startPage = document.querySelector(".startPage")
 
-const backgroundImage = document.querySelector(".backgroundImage")
+const backgroundImage = document.querySelector(".backgroundImage");
 
-//start button
+// Start button
 const startButton = document.querySelector(".startGame");
 startButton.onclick = () => {
- backgroundImage.style.display = "none";
- canvas.style.display = "block";
+  backgroundImage.style.display = "none";
+  canvas.style.display = "block";
 };
 
-//background
+// Background
 context.fillStyle = "#FF52E3";
 context.fillRect(0, 0, canvas.width, canvas.height);
-context.strokeStyle = "#5E17EB"
+context.strokeStyle = "#5E17EB";
 context.fillStyle = "#EDC3AD";
-context.lineWidth = '4';
-context.font = "101px bangers"
-context.fillText("Monster Burgers", 550, 105)
-context.strokeText("Monster Burgers", 550, 105)
+context.lineWidth = "4";
+context.font = "101px bangers";
+context.fillText("Monster Burgers", 550, 105);
+context.strokeText("Monster Burgers", 550, 105);
 
 //start page
 //startPage.style.display = "none";
 //startPage.style.display = "block";
 
-//captain burger 
+// Captain burger
 const img = new Image();
-img.src = "./Monster Burgers.png";
+img.src = "./Images/Monster Burgers.png";
 img.onload = () => {
-    context.drawImage(img, 100, 0, 250, 250);
-}
+  context.drawImage(img, 100, 0, 250, 250);
+};
 
-//cheese
+const ingredientPosition = 70;
+
+// Cheese
 const cheese = new Image();
-cheese.src = "./cheese.png";
+cheese.src = "./Images/cheese.png";
 cheese.onload = () => {
-    context.drawImage(cheese, 152, 750, 90, 90);
-}
+  context.drawImage(cheese, ingredientPosition * 1, 700, 90, 90);
+};
 
-//mustard sauce
+// Mustard sauce
 const mustard = new Image();
-mustard.src = "./Mustard.png";
+mustard.src = "./Images/Mustard.png";
 mustard.onload = () => {
-    context.drawImage(mustard, 220, 670, 60, 110);
-}
+  context.drawImage(mustard, ingredientPosition * 2, 700, 60, 110);
+};
 
-//tomato sauce
+// Tomato sauce
 const tomatoSauce = new Image();
-tomatoSauce.src = "./tomato sauce.png";
+tomatoSauce.src = "./Images/tomato sauce.png";
 tomatoSauce.onload = () => {
-    context.drawImage(tomatoSauce, 162, 580, 60, 110);
-}
+  context.drawImage(tomatoSauce, ingredientPosition * 3, 700, 60, 110);
+};
 
-//onion
+// Onion
 const onion = new Image();
-onion.src = "./onion.png";
+onion.src = "./Images/onion.png";
 onion.onload = () => {
-    context.drawImage(onion, 95, 620, 50, 80)
-}
+  context.drawImage(onion, ingredientPosition * 4, 700, 50, 80);
+};
 
-//patty
+// Patty
 const patty = new Image();
-patty.src = "./patty.png";
+patty.src = "./Images/patty.png";
 patty.onload = () => {
-    context.drawImage(patty, 167, 670, 40, 90);
-}
+  context.drawImage(patty, ingredientPosition * 5, 700, 40, 90);
+};
 
-//bread
+// Bread
 const bread = new Image();
-bread.src = "./bread.png";
+bread.src = "./Images/bread.png";
 bread.onload = () => {
-    context.drawImage(bread, 110, 690, 50, 95);
-}
+  context.drawImage(bread, ingredientPosition * 6, 700, 50, 95);
+};
 
-//table
-const table = new Image();
-table.src = "./table.png";
-table.onload = () => {
-    context.drawImage(table, 400, 450, 900, 400);
-}
-
-//chef
-const chef = new Image();
-chef.src = "./chef.png";
-chef.onload = () => {
-    context.drawImage(chef, 670, 183, 300, 300);
-}
-
-//tomatoes
+// Tomatoes
 const tomatoes = new Image();
-tomatoes.src = "./tomatoes.png";
+tomatoes.src = "./Images/tomatoes.png";
 tomatoes.onload = () => {
-    context.drawImage(tomatoes, 100, 550, 50, 90);
-}
+  context.drawImage(tomatoes, ingredientPosition * 7, 700, 50, 90);
+};
 
-//create burger
+// Table
+const table = new Image();
+table.src = "./Images/table.png";
+table.onload = () => {
+    context.drawImage(table, 470, 392, 700, 300);
+}  
+
+// Chef
+const chef = new Image();
+chef.src = "./Images/chef.png";
+chef.onload = () => {
+  context.drawImage(chef, 670, 120, 300, 300);
+};
+
+const orderIngredients = [
+  "cheese",
+  "ketchup",
+  "patty",
+  "bread",
+  "mustard",
+  "onion",
+  "tomatoes",
+];
+
+// Create burger
 function createOrder(newOrder) {
-    let orderIngredients = [
-        'cheese',
-        'tomato sauce',
-        'patty',
-        'bread',
-        'mustard sauce',
-        'onion',
-        'tomatoes'
-    ];
-    let newBurger = [];
-
-    for(let i = 0; i < newOrder; i++){
-        let rand = Math.floor(Math.random() * Math.floor(orderIngredients.length));
-        newBurger.push(orderIngredients[rand]);
-    }
-    if($.inArray('cheese', newBurger) <0){
-        let rand =Math.floor(Math.random() * Math.floor(newBurger.length - 1));
-        newBurger.splice(rand, 1, 'cheese');
-    }
-    newBurger = {ingredients: newBurger.join(',')};
-    return newBurger;
+  const newBurger = [];
+  for (let i = 0; i < newOrder; i++) {
+    const randomIndex = randomIntFromInterval(0, 6);
+    newBurger.push(orderIngredients[randomIndex]);
+  }
+  return newBurger;
 }
 
-//Receive order
-function getNewOrder(order) {
-    let currentOrder = order.ingredients.split(',');
-    orderElement.find('.order').append('<p>Yes, My order is...</p>')
-    currentOrder.forEach(function(ingredient){
-        orderElement.find('.order').append(`<p><span class="${ingredient}"></span>${ingredient}</p>`);
-    });
+function randomIntFromInterval(min, max) {
+  // min and max included
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
+
+function checkArrayEquality(_array1, _array2) {
+  return (
+    _array1.length === _array2.length &&
+    _array1.every(function (_array1_i, i) {
+      return _array1_i === _array2[i];
+    })
+  );
+}
+
+let madeBurger = [];
+let orderBurger = [];
+
+// Set interval
+setInterval(() => {
+  if (orderBurger.length === 0) {
+    orderBurger = createOrder(5);
+    console.log(orderBurger);
+  }
+  if (checkArrayEquality(orderBurger, madeBurger)) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillText("Yay, you win!", 100, 100);
+  }
+  if (
+    orderBurger.length === madeBurger.length &&
+    !checkArrayEquality(orderBurger, madeBurger)
+  ) {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    context.fillText("Haha You lost!", 100, 100);
+  }
+  orderBurger.forEach((ingredient, index) => {
+    context.fillText(ingredient, 160, 100 * (index + 1) + 100);
+  });
+  madeBurger.forEach((ingredient, index) => {
+    context.fillText(ingredient, 1200, 100 * (index + 1) + 100);
+  });
+}, 20);
+
+canvas.addEventListener("click", (event) => {
+  if (
+    event.layerX > ingredientPosition * 1 &&
+    event.layerX < ingredientPosition * 1 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("cheese");
+    console.log("cheese");
+  } else if (
+    event.layerX > ingredientPosition * 2 &&
+    event.layerX < ingredientPosition * 2 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("mustard");
+    console.log("mustad");
+  } else if (
+    event.layerX > ingredientPosition * 3 &&
+    event.layerX < ingredientPosition * 3 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("ketchup");
+    console.log("tomato sauce");
+  } else if (
+    event.layerX > ingredientPosition * 4 &&
+    event.layerX < ingredientPosition * 4 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("onion");
+    console.log("onion");
+  } else if (
+    event.layerX > ingredientPosition * 5 &&
+    event.layerX < ingredientPosition * 5 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("patty");
+    console.log("patty");
+  } else if (
+    event.layerX > ingredientPosition * 6 &&
+    event.layerX < ingredientPosition * 6 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("bread");
+    console.log("bread");
+  } else if (
+    event.layerX > ingredientPosition * 7 &&
+    event.layerX < ingredientPosition * 7 + ingredientPosition &&
+    event.layerY > 700 - ingredientPosition &&
+    event.layerY < 700 + ingredientPosition
+  ) {
+    madeBurger.push("tomatoes");
+    console.log("tomatoes");
+  }
+});
