@@ -153,10 +153,10 @@ setInterval(() => {
     context.fillText("Haha You lost!", 100, 100);
   }
   orderBurger.forEach((ingredient, index) => {
-    context.fillText(ingredient, 160, 100 * (index + 1) + 100);
+    context.fillText(ingredient, 120, 100 * (index + 1) + 170);
   });
   madeBurger.forEach((ingredient, index) => {
-    context.fillText(ingredient, 1200, 100 * (index + 1) + 100);
+    context.fillText(ingredient, 1200, 100 * (index + 1) + 170);
   });
 }, 20);
 
